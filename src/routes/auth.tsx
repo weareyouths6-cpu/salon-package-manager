@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,12 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // Idempotently seed the default admin on first visit
+  useEffect(() => {
+    fetch("/api/public/setup-admin", { method: "POST" }).catch(() => {});
+  }, []);
+
 
   async function handleGoogle() {
     const result = await lovable.auth.signInWithOAuth("google", {
