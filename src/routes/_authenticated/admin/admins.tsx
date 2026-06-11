@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/_admin/admins")({
+export const Route = createFileRoute("/_authenticated/admin/admins")({
   component: AdminsPage,
 });
 

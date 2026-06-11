@@ -20,7 +20,7 @@ import { SignedImage } from "@/lib/signed-image";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/_admin/packages")({
+export const Route = createFileRoute("/_authenticated/admin/packages")({
   component: PackagesAdmin,
 });
 

@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { AdminShell } from "@/components/admin-shell";
 import { Scissors } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/_admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminGate,
 });
 

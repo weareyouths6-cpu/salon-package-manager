@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/_admin/notifications")({
+export const Route = createFileRoute("/_authenticated/admin/notifications")({
   component: NotifAdmin,
 });
 

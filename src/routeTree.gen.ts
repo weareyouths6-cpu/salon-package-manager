@@ -9,54 +9,359 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ChangePasswordRouteImport } from './routes/change-password'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedPointsRouteImport } from './routes/_authenticated/points'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicSetupAdminRouteImport } from './routes/api/public/setup-admin'
+import { Route as AuthenticatedPackagesPurchaseIdRouteImport } from './routes/_authenticated/packages.$purchaseId'
+import { Route as AuthenticatedAdminStylistsRouteImport } from './routes/_authenticated/admin/stylists'
+import { Route as AuthenticatedAdminSellPackageRouteImport } from './routes/_authenticated/admin/sell-package'
+import { Route as AuthenticatedAdminRecordSessionRouteImport } from './routes/_authenticated/admin/record-session'
+import { Route as AuthenticatedAdminPointsRouteImport } from './routes/_authenticated/admin/points'
+import { Route as AuthenticatedAdminPackagesRouteImport } from './routes/_authenticated/admin/packages'
+import { Route as AuthenticatedAdminNotificationsRouteImport } from './routes/_authenticated/admin/notifications'
+import { Route as AuthenticatedAdminCustomersRouteImport } from './routes/_authenticated/admin/customers'
+import { Route as AuthenticatedAdminAdminsRouteImport } from './routes/_authenticated/admin/admins'
+import { Route as AuthenticatedAdminCustomersIdRouteImport } from './routes/_authenticated/admin/customers.$id'
 
+const ChangePasswordRoute = ChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPointsRoute = AuthenticatedPointsRouteImport.update({
+  id: '/points',
+  path: '/points',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
 const ApiPublicSetupAdminRoute = ApiPublicSetupAdminRouteImport.update({
   id: '/api/public/setup-admin',
   path: '/api/public/setup-admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPackagesPurchaseIdRoute =
+  AuthenticatedPackagesPurchaseIdRouteImport.update({
+    id: '/packages/$purchaseId',
+    path: '/packages/$purchaseId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminStylistsRoute =
+  AuthenticatedAdminStylistsRouteImport.update({
+    id: '/stylists',
+    path: '/stylists',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminSellPackageRoute =
+  AuthenticatedAdminSellPackageRouteImport.update({
+    id: '/sell-package',
+    path: '/sell-package',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminRecordSessionRoute =
+  AuthenticatedAdminRecordSessionRouteImport.update({
+    id: '/record-session',
+    path: '/record-session',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminPointsRoute =
+  AuthenticatedAdminPointsRouteImport.update({
+    id: '/points',
+    path: '/points',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminPackagesRoute =
+  AuthenticatedAdminPackagesRouteImport.update({
+    id: '/packages',
+    path: '/packages',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminNotificationsRoute =
+  AuthenticatedAdminNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersRoute =
+  AuthenticatedAdminCustomersRouteImport.update({
+    id: '/customers',
+    path: '/customers',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminAdminsRoute =
+  AuthenticatedAdminAdminsRouteImport.update({
+    id: '/admins',
+    path: '/admins',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersIdRoute =
+  AuthenticatedAdminCustomersIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminCustomersRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/points': typeof AuthenticatedPointsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
+  '/admin/customers': typeof AuthenticatedAdminCustomersRouteWithChildren
+  '/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
+  '/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/admin/points': typeof AuthenticatedAdminPointsRoute
+  '/admin/record-session': typeof AuthenticatedAdminRecordSessionRoute
+  '/admin/sell-package': typeof AuthenticatedAdminSellPackageRoute
+  '/admin/stylists': typeof AuthenticatedAdminStylistsRoute
+  '/packages/$purchaseId': typeof AuthenticatedPackagesPurchaseIdRoute
   '/api/public/setup-admin': typeof ApiPublicSetupAdminRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/customers/$id': typeof AuthenticatedAdminCustomersIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/points': typeof AuthenticatedPointsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
+  '/admin/customers': typeof AuthenticatedAdminCustomersRouteWithChildren
+  '/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
+  '/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/admin/points': typeof AuthenticatedAdminPointsRoute
+  '/admin/record-session': typeof AuthenticatedAdminRecordSessionRoute
+  '/admin/sell-package': typeof AuthenticatedAdminSellPackageRoute
+  '/admin/stylists': typeof AuthenticatedAdminStylistsRoute
+  '/packages/$purchaseId': typeof AuthenticatedPackagesPurchaseIdRoute
   '/api/public/setup-admin': typeof ApiPublicSetupAdminRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/customers/$id': typeof AuthenticatedAdminCustomersIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
+  '/_authenticated/points': typeof AuthenticatedPointsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/admin/admins': typeof AuthenticatedAdminAdminsRoute
+  '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRouteWithChildren
+  '/_authenticated/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
+  '/_authenticated/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/_authenticated/admin/points': typeof AuthenticatedAdminPointsRoute
+  '/_authenticated/admin/record-session': typeof AuthenticatedAdminRecordSessionRoute
+  '/_authenticated/admin/sell-package': typeof AuthenticatedAdminSellPackageRoute
+  '/_authenticated/admin/stylists': typeof AuthenticatedAdminStylistsRoute
+  '/_authenticated/packages/$purchaseId': typeof AuthenticatedPackagesPurchaseIdRoute
   '/api/public/setup-admin': typeof ApiPublicSetupAdminRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/customers/$id': typeof AuthenticatedAdminCustomersIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/setup-admin'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/change-password'
+    | '/admin'
+    | '/dashboard'
+    | '/notifications'
+    | '/points'
+    | '/profile'
+    | '/admin/admins'
+    | '/admin/customers'
+    | '/admin/notifications'
+    | '/admin/packages'
+    | '/admin/points'
+    | '/admin/record-session'
+    | '/admin/sell-package'
+    | '/admin/stylists'
+    | '/packages/$purchaseId'
+    | '/api/public/setup-admin'
+    | '/admin/'
+    | '/admin/customers/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/setup-admin'
-  id: '__root__' | '/' | '/api/public/setup-admin'
+  to:
+    | '/'
+    | '/auth'
+    | '/change-password'
+    | '/dashboard'
+    | '/notifications'
+    | '/points'
+    | '/profile'
+    | '/admin/admins'
+    | '/admin/customers'
+    | '/admin/notifications'
+    | '/admin/packages'
+    | '/admin/points'
+    | '/admin/record-session'
+    | '/admin/sell-package'
+    | '/admin/stylists'
+    | '/packages/$purchaseId'
+    | '/api/public/setup-admin'
+    | '/admin'
+    | '/admin/customers/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/change-password'
+    | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/notifications'
+    | '/_authenticated/points'
+    | '/_authenticated/profile'
+    | '/_authenticated/admin/admins'
+    | '/_authenticated/admin/customers'
+    | '/_authenticated/admin/notifications'
+    | '/_authenticated/admin/packages'
+    | '/_authenticated/admin/points'
+    | '/_authenticated/admin/record-session'
+    | '/_authenticated/admin/sell-package'
+    | '/_authenticated/admin/stylists'
+    | '/_authenticated/packages/$purchaseId'
+    | '/api/public/setup-admin'
+    | '/_authenticated/admin/'
+    | '/_authenticated/admin/customers/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ChangePasswordRoute: typeof ChangePasswordRoute
   ApiPublicSetupAdminRoute: typeof ApiPublicSetupAdminRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/change-password': {
+      id: '/change-password'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof ChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/points': {
+      id: '/_authenticated/points'
+      path: '/points'
+      fullPath: '/points'
+      preLoaderRoute: typeof AuthenticatedPointsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/api/public/setup-admin': {
       id: '/api/public/setup-admin'
@@ -65,13 +370,162 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSetupAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/packages/$purchaseId': {
+      id: '/_authenticated/packages/$purchaseId'
+      path: '/packages/$purchaseId'
+      fullPath: '/packages/$purchaseId'
+      preLoaderRoute: typeof AuthenticatedPackagesPurchaseIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/stylists': {
+      id: '/_authenticated/admin/stylists'
+      path: '/stylists'
+      fullPath: '/admin/stylists'
+      preLoaderRoute: typeof AuthenticatedAdminStylistsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/sell-package': {
+      id: '/_authenticated/admin/sell-package'
+      path: '/sell-package'
+      fullPath: '/admin/sell-package'
+      preLoaderRoute: typeof AuthenticatedAdminSellPackageRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/record-session': {
+      id: '/_authenticated/admin/record-session'
+      path: '/record-session'
+      fullPath: '/admin/record-session'
+      preLoaderRoute: typeof AuthenticatedAdminRecordSessionRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/points': {
+      id: '/_authenticated/admin/points'
+      path: '/points'
+      fullPath: '/admin/points'
+      preLoaderRoute: typeof AuthenticatedAdminPointsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/packages': {
+      id: '/_authenticated/admin/packages'
+      path: '/packages'
+      fullPath: '/admin/packages'
+      preLoaderRoute: typeof AuthenticatedAdminPackagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/notifications': {
+      id: '/_authenticated/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AuthenticatedAdminNotificationsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/customers': {
+      id: '/_authenticated/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/admins': {
+      id: '/_authenticated/admin/admins'
+      path: '/admins'
+      fullPath: '/admin/admins'
+      preLoaderRoute: typeof AuthenticatedAdminAdminsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/customers/$id': {
+      id: '/_authenticated/admin/customers/$id'
+      path: '/$id'
+      fullPath: '/admin/customers/$id'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersIdRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersRoute
+    }
   }
 }
 
+interface AuthenticatedAdminCustomersRouteChildren {
+  AuthenticatedAdminCustomersIdRoute: typeof AuthenticatedAdminCustomersIdRoute
+}
+
+const AuthenticatedAdminCustomersRouteChildren: AuthenticatedAdminCustomersRouteChildren =
+  {
+    AuthenticatedAdminCustomersIdRoute: AuthenticatedAdminCustomersIdRoute,
+  }
+
+const AuthenticatedAdminCustomersRouteWithChildren =
+  AuthenticatedAdminCustomersRoute._addFileChildren(
+    AuthenticatedAdminCustomersRouteChildren,
+  )
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminAdminsRoute: typeof AuthenticatedAdminAdminsRoute
+  AuthenticatedAdminCustomersRoute: typeof AuthenticatedAdminCustomersRouteWithChildren
+  AuthenticatedAdminNotificationsRoute: typeof AuthenticatedAdminNotificationsRoute
+  AuthenticatedAdminPackagesRoute: typeof AuthenticatedAdminPackagesRoute
+  AuthenticatedAdminPointsRoute: typeof AuthenticatedAdminPointsRoute
+  AuthenticatedAdminRecordSessionRoute: typeof AuthenticatedAdminRecordSessionRoute
+  AuthenticatedAdminSellPackageRoute: typeof AuthenticatedAdminSellPackageRoute
+  AuthenticatedAdminStylistsRoute: typeof AuthenticatedAdminStylistsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminAdminsRoute: AuthenticatedAdminAdminsRoute,
+    AuthenticatedAdminCustomersRoute:
+      AuthenticatedAdminCustomersRouteWithChildren,
+    AuthenticatedAdminNotificationsRoute: AuthenticatedAdminNotificationsRoute,
+    AuthenticatedAdminPackagesRoute: AuthenticatedAdminPackagesRoute,
+    AuthenticatedAdminPointsRoute: AuthenticatedAdminPointsRoute,
+    AuthenticatedAdminRecordSessionRoute: AuthenticatedAdminRecordSessionRoute,
+    AuthenticatedAdminSellPackageRoute: AuthenticatedAdminSellPackageRoute,
+    AuthenticatedAdminStylistsRoute: AuthenticatedAdminStylistsRoute,
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
+  AuthenticatedPointsRoute: typeof AuthenticatedPointsRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedPackagesPurchaseIdRoute: typeof AuthenticatedPackagesPurchaseIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
+  AuthenticatedPointsRoute: AuthenticatedPointsRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedPackagesPurchaseIdRoute: AuthenticatedPackagesPurchaseIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ChangePasswordRoute: ChangePasswordRoute,
   ApiPublicSetupAdminRoute: ApiPublicSetupAdminRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

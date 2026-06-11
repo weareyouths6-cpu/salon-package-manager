@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/_admin/customers")({
+export const Route = createFileRoute("/_authenticated/admin/customers")({
   component: CustomersList,
 });
 

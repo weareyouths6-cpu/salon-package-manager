@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { ChevronLeft } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/_admin/customers/$id")({
+export const Route = createFileRoute("/_authenticated/admin/customers/$id")({
   component: CustomerDetail,
 });
 

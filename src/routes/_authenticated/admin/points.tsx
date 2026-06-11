@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/_admin/points")({
+export const Route = createFileRoute("/_authenticated/admin/points")({
   component: PointsAdjust,
 });
 

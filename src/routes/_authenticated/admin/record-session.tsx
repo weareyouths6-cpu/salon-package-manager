@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/_admin/record-session")({
+export const Route = createFileRoute("/_authenticated/admin/record-session")({
   component: RecordSession,
 });
 

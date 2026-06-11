@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/_admin/sell-package")({
+export const Route = createFileRoute("/_authenticated/admin/sell-package")({
   component: SellPackage,
 });
 
