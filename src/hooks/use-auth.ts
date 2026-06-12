@@ -8,20 +8,25 @@ export function useAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<Role>(null);
-  const [loading, setLoading] = useState(true);
+  const [sessionLoaded, setSessionLoaded] = useState(false);
+  const [roleLoaded, setRoleLoaded] = useState(false);
 
   useEffect(() => {
     let mounted = true;
+
+    // Subscribe first so we don't miss events
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
+      if (!mounted) return;
+      setSession(s);
+      setUser(s?.user ?? null);
+      setSessionLoaded(true);
+    });
 
     supabase.auth.getSession().then(({ data }) => {
       if (!mounted) return;
       setSession(data.session);
       setUser(data.session?.user ?? null);
-    });
-
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
+      setSessionLoaded(true);
     });
 
     return () => {
@@ -31,22 +36,31 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
+    if (!sessionLoaded) return;
     if (!user) {
       setRole(null);
-      setLoading(false);
+      setRoleLoaded(true);
       return;
     }
-    setLoading(true);
+    setRoleLoaded(false);
+    let cancelled = false;
     supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", user.id)
       .then(({ data }) => {
+        if (cancelled) return;
         const roles = (data ?? []).map((r) => r.role);
-        setRole(roles.includes("admin") ? "admin" : roles.includes("customer") ? "customer" : null);
-        setLoading(false);
+        setRole(
+          roles.includes("admin") ? "admin" : roles.includes("customer") ? "customer" : null,
+        );
+        setRoleLoaded(true);
       });
-  }, [user]);
+    return () => {
+      cancelled = true;
+    };
+  }, [user, sessionLoaded]);
 
+  const loading = !sessionLoaded || (!!user && !roleLoaded);
   return { session, user, role, loading };
 }
