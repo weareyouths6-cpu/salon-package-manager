@@ -29,6 +29,28 @@ function Dashboard() {
     },
   });
 
+  const { data: packages } = useQuery({
+    queryKey: ["browse-packages"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("packages")
+        .select("*")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const { data: stylists } = useQuery({
+    queryKey: ["browse-stylists"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("stylists").select("*").order("name");
+      if (error) throw error;
+      return data;
+    },
+  });
+
   return (
     <CustomerShell>
       <div className="mb-6">
