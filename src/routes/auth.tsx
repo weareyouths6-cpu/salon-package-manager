@@ -19,7 +19,9 @@ function AuthPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [magicSent, setMagicSent] = useState(false);
 
   // Idempotently seed the default admin on first visit
   useEffect(() => {
@@ -37,6 +39,22 @@ function AuthPage() {
     }
     if (result.redirected) return;
     navigate({ to: "/" });
+  }
+
+  async function handleMagicLink(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitting(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: customerEmail,
+      options: { emailRedirectTo: window.location.origin },
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setMagicSent(true);
+    toast.success("Check your email for a sign-in link");
   }
 
   async function handleAdminLogin(e: React.FormEvent) {
