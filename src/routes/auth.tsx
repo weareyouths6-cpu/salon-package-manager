@@ -86,12 +86,43 @@ function AuthPage() {
               <TabsTrigger value="customer">Customer</TabsTrigger>
               <TabsTrigger value="admin">Admin</TabsTrigger>
             </TabsList>
-            <TabsContent value="customer" className="pt-4">
+            <TabsContent value="customer" className="pt-4 space-y-4">
+              {magicSent ? (
+                <div className="text-center text-sm text-muted-foreground py-4">
+                  We sent a sign-in link to <span className="font-medium text-foreground">{customerEmail}</span>.
+                  Open it on this device to continue.
+                </div>
+              ) : (
+                <form onSubmit={handleMagicLink} className="space-y-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="customer-email">Email</Label>
+                    <Input
+                      id="customer-email"
+                      type="email"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      placeholder="you@email.com"
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={submitting}>
+                    {submitting ? "Sending..." : "Continue with email"}
+                  </Button>
+                </form>
+              )}
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">or</span>
+                </div>
+              </div>
               <Button onClick={handleGoogle} className="w-full" size="lg" variant="outline">
                 Continue with Google
               </Button>
-              <p className="mt-3 text-xs text-muted-foreground text-center">
-                Use your Google account — your profile is created automatically.
+              <p className="text-xs text-muted-foreground text-center">
+                No password needed — sign up and sign in with just your email.
               </p>
             </TabsContent>
             <TabsContent value="admin" className="pt-4">
