@@ -17,10 +17,17 @@ function CustomersList() {
     queryFn: async () => {
       const { data: roles, error } = await supabase
         .from("user_roles")
-        .select("user_id, profiles!inner(id, full_name, phone, location, avatar_url)")
+        .select("user_id")
         .eq("role", "customer");
       if (error) throw error;
-      return roles ?? [];
+      const ids = (roles ?? []).map((r) => r.user_id);
+      if (ids.length === 0) return [];
+      const { data: profiles, error: pErr } = await supabase
+        .from("profiles")
+        .select("id, full_name, phone, location, avatar_url")
+        .in("id", ids);
+      if (pErr) throw pErr;
+      return (profiles ?? []).map((p) => ({ user_id: p.id, profiles: p }));
     },
   });
 
