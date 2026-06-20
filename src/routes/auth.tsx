@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,42 +18,38 @@ function AuthPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [customerMode, setCustomerMode] = useState<"signin" | "signup">("signin");
   const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPassword, setCustomerPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [magicSent, setMagicSent] = useState(false);
 
-  // Idempotently seed the default admin on first visit
   useEffect(() => {
     fetch("/api/public/setup-admin", { method: "POST" }).catch(() => {});
   }, []);
 
-
-  async function handleGoogle() {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      toast.error("Google sign-in failed");
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/" });
-  }
-
-  async function handleMagicLink(e: React.FormEvent) {
+  async function handleCustomer(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.auth.signInWithOtp({
-      email: customerEmail,
-      options: { emailRedirectTo: window.location.origin },
-    });
-    setSubmitting(false);
-    if (error) {
-      toast.error(error.message);
-      return;
+    if (customerMode === "signup") {
+      const { error } = await supabase.auth.signUp({
+        email: customerEmail,
+        password: customerPassword,
+        options: { emailRedirectTo: window.location.origin },
+      });
+      setSubmitting(false);
+      if (error) return toast.error(error.message);
+      toast.success("Account created");
+      navigate({ to: "/" });
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: customerEmail,
+        password: customerPassword,
+      });
+      setSubmitting(false);
+      if (error) return toast.error(error.message);
+      toast.success("Welcome back");
+      navigate({ to: "/" });
     }
-    setMagicSent(true);
-    toast.success("Check your email for a sign-in link");
   }
 
   async function handleAdminLogin(e: React.FormEvent) {
@@ -62,10 +57,7 @@ function AuthPage() {
     setSubmitting(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setSubmitting(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
+    if (error) return toast.error(error.message);
     toast.success("Welcome back");
     navigate({ to: "/" });
   }
@@ -86,44 +78,56 @@ function AuthPage() {
               <TabsTrigger value="customer">Customer</TabsTrigger>
               <TabsTrigger value="admin">Admin</TabsTrigger>
             </TabsList>
-            <TabsContent value="customer" className="pt-4 space-y-4">
-              {magicSent ? (
-                <div className="text-center text-sm text-muted-foreground py-4">
-                  We sent a sign-in link to <span className="font-medium text-foreground">{customerEmail}</span>.
-                  Open it on this device to continue.
-                </div>
-              ) : (
-                <form onSubmit={handleMagicLink} className="space-y-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="customer-email">Email</Label>
-                    <Input
-                      id="customer-email"
-                      type="email"
-                      value={customerEmail}
-                      onChange={(e) => setCustomerEmail(e.target.value)}
-                      placeholder="you@email.com"
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full" disabled={submitting}>
-                    {submitting ? "Sending..." : "Continue with email"}
-                  </Button>
-                </form>
-              )}
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">or</span>
-                </div>
+            <TabsContent value="customer" className="pt-4 space-y-3">
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant={customerMode === "signin" ? "default" : "outline"}
+                  className="flex-1"
+                  onClick={() => setCustomerMode("signin")}
+                >
+                  Sign in
+                </Button>
+                <Button
+                  type="button"
+                  variant={customerMode === "signup" ? "default" : "outline"}
+                  className="flex-1"
+                  onClick={() => setCustomerMode("signup")}
+                >
+                  Sign up
+                </Button>
               </div>
-              <Button onClick={handleGoogle} className="w-full" size="lg" variant="outline">
-                Continue with Google
-              </Button>
-              <p className="text-xs text-muted-foreground text-center">
-                No password needed — sign up and sign in with just your email.
-              </p>
+              <form onSubmit={handleCustomer} className="space-y-3">
+                <div className="space-y-2">
+                  <Label htmlFor="customer-email">Email</Label>
+                  <Input
+                    id="customer-email"
+                    type="email"
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    placeholder="you@email.com"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="customer-password">Password</Label>
+                  <Input
+                    id="customer-password"
+                    type="password"
+                    value={customerPassword}
+                    onChange={(e) => setCustomerPassword(e.target.value)}
+                    minLength={6}
+                    required
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={submitting}>
+                  {submitting
+                    ? "Please wait..."
+                    : customerMode === "signup"
+                      ? "Create account"
+                      : "Sign in"}
+                </Button>
+              </form>
             </TabsContent>
             <TabsContent value="admin" className="pt-4">
               <form onSubmit={handleAdminLogin} className="space-y-3">
